@@ -1,5 +1,4 @@
 import sys
-from matplotlib import image
 import tensorflow as tf
 import numpy as np
 import os
@@ -11,7 +10,7 @@ EPOCHS = 10
 IMG_WIDTH = 64
 IMG_HEIGHT = 64
 NUM_CATEGORIES = 10
-TEST_SIZE = 0.4
+TEST_SIZE = 0.2
 
 CATEGORIZE = {
     "butterfly": 0,
@@ -77,8 +76,8 @@ def get_model():
         
         tf.keras.layers.Flatten(),
 
-        tf.keras.layers.Dense(256, activation="relu"),
-        tf.keras.layers.Dropout(0.5),
+        tf.keras.layers.Dense(128, activation="relu"),
+        tf.keras.layers.Dropout(0.25),
 
         tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
     ])
