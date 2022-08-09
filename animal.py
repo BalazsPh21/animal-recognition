@@ -1,4 +1,5 @@
 import sys
+from matplotlib import image
 import tensorflow as tf
 import numpy as np
 import os
@@ -11,6 +12,19 @@ IMG_WIDTH = 30
 IMG_HEIGHT = 30
 NUM_CATEGORIES = 10
 TEST_SIZE = 0.4
+
+CATEGORIZE = {
+    "butterfly": 0,
+    "cat": 1,
+    "chicken": 2,
+    "cow": 3,
+    "dog": 4,
+    "elephant": 5,
+    "horse": 6,
+    "sheep": 7,
+    "spider": 8,
+    "squirrel": 9
+}
 
 def main():
 
@@ -41,6 +55,14 @@ def load_data(data_dir):
     images = list()
     labels = list()
 
+    for animal in os.listdir(data_dir):
+        folder = os.path.join(data_dir, animal)
+        for filename in os.listdir(folder):
+            img = cv2.imread(os.path.join(folder, filename), cv2.IMREAD_COLOR)
+            img = cv2.resize(img, (IMG_WIDTH, IMG_HEIGHT), interpolation=cv2.INTER_NEAREST)
+
+            images.append(img)
+            labels.append(CATEGORIZE[animal])
 
     return images, labels
 
