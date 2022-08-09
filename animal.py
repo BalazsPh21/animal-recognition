@@ -8,8 +8,8 @@ import cv2
 from sklearn.model_selection import train_test_split
 
 EPOCHS = 10
-IMG_WIDTH = 1000
-IMG_HEIGHT = 1000
+IMG_WIDTH = 64
+IMG_HEIGHT = 64
 NUM_CATEGORIES = 10
 TEST_SIZE = 0.4
 
@@ -70,14 +70,14 @@ def load_data(data_dir):
 def get_model():
     model = tf.keras.models.Sequential([
         tf.keras.layers.Conv2D(
-            32, (3, 3), activation="sigmoid", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
+            64, (5, 5), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
         ),
 
         tf.keras.layers.MaxPooling2D(pool_size=(3, 3)),
         
         tf.keras.layers.Flatten(),
 
-        tf.keras.layers.Dense(256, activation="sigmoid"),
+        tf.keras.layers.Dense(256, activation="relu"),
         tf.keras.layers.Dropout(0.5),
 
         tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
